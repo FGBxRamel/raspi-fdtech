@@ -1,15 +1,14 @@
 import RockyBorg
 import time
+import math
 
 rudolf = RockyBorg.RockyBorg()
-print("Init")
 rudolf.Init()
-print("Init done")
-rudolf.SetMotorsEnabled(True)
-print("Enabled Motors")
-rudolf.SetMotors(0.5)
-print("Set Motors 0,5")
-time.sleep(1)
-print("Seting Motors 0")
-rudolf.SetMotors(0)
-print("Set Motors 0")
+
+rudolf.v = 2*2*math.pi*0.035
+
+def longt(richtung, speed : float):
+    rudolf.SetMotorsEnabled(True)
+    rudolf.SetMotor1(0.5)
+    rudolf.SetMotor2(0)
+    
