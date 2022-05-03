@@ -12,3 +12,4 @@ def longt(richtung, speed : float):
     rudolf.SetMotor1(0.5)
     rudolf.SetMotor2(0)
     
+longt(1,0,5)
