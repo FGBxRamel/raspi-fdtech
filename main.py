@@ -8,12 +8,13 @@ rudolf.Init()
 rudolf.v = 2*2*math.pi*0.035
 
 
-def longt(richtung, speed: float):
+def drive(speed: float, direction: float, time: float = 10):
     rudolf.SetMotorsEnabled(True)
-    rudolf.SetMotor1(-1)
-    rudolf.SetMotor2(1)
-    #input()
-    #rudolf.SetMotors(0)
+    rudolf.SetMotor1(speed * (-1))
+    rudolf.SetMotor2(speed)
+    time.sleep(time)
+    rudolf.SetMotors(0)
+    rudolf.SetServoPosition(direction)
 
 
-longt(1, 0.5)
+drive(1,1,3)
