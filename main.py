@@ -15,26 +15,25 @@ def drive(direction:float):
     #rudolf.SetMotors(0)
     #rudolf.SetServoPosition(0)
 
-speed = input("speed:")
+
 #timeslp = input("timesteps:")
-reedv = input("redvalue::")
+speed = input("speed:")
+resolution = input("resolution:")
+redv = input("redvalue:")
 greenv = input("greenvalue:")
 bluev = input("bluevalue:")
 rangev = input("value-range:")
-
+colorcode = [redv, greenv, bluev]
+color = pic.Color(colorcode, rangev, resolution)
 
 while run == True:
     
-    #"""running function to evaluate x-coordinate of aimed color"""
+    x = color.getY()  
 
     if not x == None:
-
-        x = 123        #"""x-coordinate of aim"""
-
-        """
-        68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
-        sin = Gegenkatete/Hypotenuse, Hypotenuse =  (65^2 + (41oder27)^2)^1/2
-        """
+        #68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
+        #sin = Gegenkatete/Hypotenuse, Hypotenuse =  (65^2 + (41oder27)^2)^1/2
+        
         a = 0.27 #"""Länge: Mittelpunkt bis rechter äußerer Rand"""
         b = 0.41 #"""Länge: Mittelpunkt bis linker äußerer Rand""""
         c = 0.65 #"""Abstand zu Gerade a+b"""
@@ -42,10 +41,10 @@ while run == True:
         alpha = math.asin(math.sin(a/(c^2 + a^2)^(1/2)))
         beta = math.asin(math.sin(b/(c^2 + b^2)^(1/2)))
 
-        """
-        2464 pixel breite auf a+b eingeteilt
-        --> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
-        """
+        
+        #2464 pixel breite auf a+b eingeteilt
+        #--> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
+        
         pixelmengea = (128 / 0.68) * a
         pixelmengeb = (128 / 0.68) * b
 
