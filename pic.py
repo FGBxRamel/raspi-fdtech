@@ -1,3 +1,4 @@
+from turtle import width
 import imageio.v3 as iio
 import numpy as np
 
@@ -9,14 +10,17 @@ import numpy as np
 
 img = iio.imread("test3.jpg")
 img_array = np.array(img)
-
+length = 8
+median = (0,0,0)
 
 start = (0, 0)
-stop = (7, 7)
 done = False
+for y in range(start[0], start[0]+length+1):
+    for x in range(start[1], start[1]+length+1):
+        for i in range(0,4):
+            list(median)[i] = list(median)[i] + img_array[y][x][i]
 
-for y in img_array:
-    for i in y:
-        print(i)
-#while not done:
-#    pass
+
+
+while not done:
+    pass 
