@@ -3,7 +3,7 @@ import cv2 as cv
 import numpy as np
 
 
-class color:
+class Color:
     """A class for a color.\n
     It needs a color code in the format of a list (R, G, B).\n
     Optional arguments:\n
