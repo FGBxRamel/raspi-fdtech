@@ -6,7 +6,8 @@ import numpy as np
 # Second: Go to every one of that pixel, make average of the color of x*x pixels around the pixel, save that
 # Third: Compare all the boxes, take one with highest match to given color
 # Fourth: World domination
-# PS: I know this is double linear, but idc
+
+
 
 img = iio.imread("test3.jpg")
 img_array = np.array(img)
