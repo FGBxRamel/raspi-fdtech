@@ -1,20 +1,16 @@
 import RockyBorg
 import time
 import math
+import pic
 
 rudolf = RockyBorg.RockyBorg()
 rudolf.Init()
 
-rudolf.v = 2*2*math.pi*0.035
+
+"""running function to evaluate x-coordinate of aimed color"""
+
+n = 800
+x = n        """x-coordinate of aim"""
 
 
-def drive(speed: float, direction: float = 0, timesleep: float = 1):
-    rudolf.SetMotorsEnabled(True)
-    rudolf.SetMotor1(speed * (-1))
-    rudolf.SetMotor2(speed)
-    time.sleep(timesleep)
-    rudolf.SetMotors(0)
-    rudolf.SetServoPosition(direction)
 
-
-drive(1,1,2)
