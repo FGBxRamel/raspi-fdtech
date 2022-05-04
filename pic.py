@@ -3,7 +3,7 @@ import cv2 as cv
 import numpy as np
 
 
-class Farbe:
+class color:
     """A class for a color.\n
     It needs a color code in the format of a list (R, G, B).\n
     Optional arguments:\n
@@ -12,7 +12,7 @@ class Farbe:
     """
 
     def __init__(self, farbcode: list, tolerance: int = 5, length : int = 128) -> None:
-        self.farbe = list(farbcode)
+        self.color = list(farbcode)
         self.tolerance = int(tolerance)
         self.length = int(length)
         self._addTolerance()
@@ -25,7 +25,7 @@ class Farbe:
         self.range = []
         for i in range(0, 3):
             self.range[i] = list(
-                (self.farbe[i]-self.tolerance, self.farbe[i]+self.tolerance))
+                (self.color[i]-self.tolerance, self.color[i]+self.tolerance))
         return self.range
 
     def getY(self):
@@ -36,7 +36,8 @@ class Farbe:
         for y in range(0, self.length):
             for x in range(0, self.length):
                 for i, pair in enumerate(self.range):
-                    if img[y, x][i] <= pair[0] or img[y, x][i] >= pair[1]:
-                        abs()
+                    img_color = img[y, x][i]
+                    if img_color <= pair[0] or img_color >= pair[1]:
+                        abs(img_color - self.color)
 
 
