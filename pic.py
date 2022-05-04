@@ -33,11 +33,15 @@ class Color:
         # If not: return None
         # TODO Change image to freshly taken one
         img = np.array(cv.resize(cv.imread("test3.jpg"), (self.length, self.length)))
+        winner = {}
+        # this dict has the structure: offset : pixel-y-coordinate 
         for y in range(0, self.length):
             for x in range(0, self.length):
                 for i, pair in enumerate(self.range):
                     img_color = img[y, x][i]
                     if img_color <= pair[0] or img_color >= pair[1]:
-                        abs(img_color - self.color)
+                        offset = abs(img_color - self.color)
+                        winner[offset] = y if not offset in winner.keys() else winner[offset]
+                        
 
 
