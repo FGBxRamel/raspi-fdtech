@@ -8,19 +8,21 @@ import numpy as np
 # Third: Compare all the boxes, take one with highest match to given color
 # Fourth: World domination
 
-img = iio.imread("test3.jpg")
-img_array = np.array(img)
+img = np.array(iio.imread("test3.jpg"))
+print(img.shape)
 length = 8
-median = (0,0,0)
 
 start = (0, 0)
 done = False
-for y in range(start[0], start[0]+length+1):
-    for x in range(start[1], start[1]+length+1):
-        for i in range(0,4):
-            list(median)[i] = list(median)[i] + img_array[y][x][i]
-
-
 
 while not done:
-    pass 
+    if img.shape[1] < x + length or img.shape[0] < y + length:
+        done = True
+    else:
+        median = list((0, 0, 0))
+        for y in range(start[0], start[0]+length+1):
+            for x in range(start[1], start[1]+length+1):
+                for i in range(0, 3):
+                    median[i] = median[i] + img[y, x][i]
+        for j in range(0, 3):
+            median[j] = median[j] / 64
