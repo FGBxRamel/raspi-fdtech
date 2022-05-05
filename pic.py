@@ -12,11 +12,12 @@ class Color:
         length: The length of the sides of the downscaled picture. The bigger the number, the more precise (and long) it will be. Default: 128
     """
 
-    def __init__(self, farbcode: list, tolerance: int = 20, length: int = 128) -> None:
-        self.color = list(farbcode)
+    def __init__(self, colorcode: list = (-1, -1, -1), tolerance: int = 20, length: int = 128) -> None:
+        self.color = list(colorcode)
         self.tolerance = int(tolerance)
         self.length = int(length)
         self._addTolerance()
+        self.color = self._getColor() if self.color[0] == -1 else self.color
 
     def _addTolerance(self) -> list:
         """Internal function to add the given tolerance to the RGB list. Gives back a list, with a list with the start and stop value of the color value.\n
@@ -32,13 +33,7 @@ class Color:
 
     def getY(self) -> int:
         """Gives back the y-Coordinate of the last pixel found matching the color."""
-        with picamera.PiCamera() as camera:
-            camera.resolution = (self.length, self.length)
-            img = np.empty((self.length * self.length * 3), dtype=np.uint8)
-            camera.capture(img, "rgb")
-            img = img.reshape((self.length, self.length, 3))
-        # img = np.array(cv.resize(cv.imread("test3.jpg"),
-        #               (self.length, self.length)))
+        img = self.getImage()
         # this dict has the structure: avg_offset : pixel-y-coordinate
         winner = {}
         for y in range(0, self.length):
@@ -54,15 +49,29 @@ class Color:
                     if img_color >= pair[0] and img_color <= pair[1]:
                         avg_offset += abs(img_color - self.color[i])
                         valid = True
-                        #print(f"pixel {x}, {y} has valid {i} value of {img_color}")
                     else:
-                        #print(f"pixel {x}, {y} has no valid {i} value with {img_color}")
                         valid = False
                         break
                 if valid:
                     winner[avg_offset] = y
-        print(f"Length of winner dict is {len(winner)}")
         return winner[min(winner.keys())] if not len(winner) == 0 else None
+
+    def _getColor(self) -> list:
+        img = self.getImage()
+        avg = list((0,0,0))
+        for y in range(self.length/2-2, self.length/2+3):
+            for x in range(self.length/2-2, self.length/2+3):
+                np.add(avg, img[y, x])
+        return np.divide(avg, list((25,25)))
+
+    def getImage(self) -> np.ndarray:
+        """Takes a picture and gives it back as an numpy ndarray"""
+        with picamera.PiCamera() as camera:
+            camera.resolution = (self.length, self.length)
+            img = np.empty((self.length * self.length * 3), dtype=np.uint8)
+            camera.capture(img, "rgb")
+            img = img.reshape((self.length, self.length, 3))
+            return img
 
 
 if __name__ == "__main__":
