@@ -13,7 +13,9 @@ rudolf.Init()
 # drive function
 def drive(direction: float):
     """
-    TODO Make docstring
+    lets the vehicle drive with predefined speed and given direction
+
+    direction: value betwenn -1 and 1 describing in wich direction the vehicle drives
     """
     rudolf.SetMotorsEnabled(True)
     rudolf.SetMotor1(speed * -1)
@@ -98,9 +100,9 @@ while run == True:
         rudolf.SetMotorsEnabled(True)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
-        rudolf.SetMotor1(-1)
-        rudolf.SetMotor2(1)
-        rudolf.SetServoPosition(g * 0.5)
+        rudolf.SetMotor1(-0.25)
+        rudolf.SetMotor2(0,25)
+        rudolf.SetServoPosition(g * 1)
         time.sleep(1)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
