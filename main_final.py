@@ -30,7 +30,7 @@ color = pic.Color(colorcode, rangev, resolution)
 run = True
 g = -1
 
-
+#loop to search 
 while run == True:
     
     x = color.getY()  
