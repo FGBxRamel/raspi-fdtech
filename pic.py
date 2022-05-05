@@ -17,7 +17,6 @@ class Color:
         self.tolerance = int(tolerance)
         self.length = int(length)
         self._addTolerance()
-        self.camera = picamera.PiCamera()
 
     def _addTolerance(self) -> list:
         """Internal function to add the given tolerance to the RGB list. Gives back a list, with a list with the start and stop value of the color value.\n
@@ -32,9 +31,11 @@ class Color:
 
     def getY(self) -> int:
         """Gives back the y-Coordinate of the last pixel found matching the color."""
-        with self.camera.capture(io.BytesIO(), 'jpeg') as f:
-            img = np.array(cv.resize(cv.imread(f),
-                                     (self.length, self.length)))
+        with picamera.PiCamera() as camera:
+            camera.resolution = (self.length, self.length)
+            img = np.empty((self.length * self.length * 3), dtype=np.uint8)
+            camera.capture(img, "rgb")
+            img = img.reshape((self.length, self.length, 3))
         # img = np.array(cv.resize(cv.imread("test3.jpg"),
         #               (self.length, self.length)))
         # this dict has the structure: avg_offset : pixel-y-coordinate
