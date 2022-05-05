@@ -66,7 +66,9 @@ class Color:
         for y in range(self.length//2-2, self.length//2+3):
             for x in range(self.length//2-2, self.length//2+3):
                 np.add(avg, img[y, x])
-        return np.divide(avg, list((25, 25)))
+        for i, num in enumerate(avg):
+            avg[i] = num//25
+        return avg
 
     def getImage(self) -> np.ndarray:
         """Takes a picture and gives it back as an numpy ndarray"""
