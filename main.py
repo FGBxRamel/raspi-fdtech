@@ -36,10 +36,10 @@ while run == True:
         
         a = 0.27 #"""Länge: Mittelpunkt bis rechter äußerer Rand"""
         b = 0.41 #"""Länge: Mittelpunkt bis linker äußerer Rand""""
-        c = 0.65 #"""Abstand zu Gerade a+b"""
+        #c = 0.65 #"""Abstand zu Gerade a+b"""
 
-        alpha = math.asin(math.sin(a/(c^2 + a^2)^(1/2)))
-        beta = math.asin(math.sin(b/(c^2 + b^2)^(1/2)))
+        #alpha = math.asin(math.sin(a/(c^2 + a^2)^(1/2)))
+        #beta = math.asin(math.sin(b/(c^2 + b^2)^(1/2)))
 
         
         #2464 pixel breite auf a+b eingeteilt
@@ -51,13 +51,18 @@ while run == True:
         nullpunkt = int(resolution - pixelmengea)
 
         if x < nullpunkt:
-            direction = 
+            dir = (x - nullpunkt) / pixelmengeb
+            drive(dir)
+            g = dir * -1
 
         elif x > nullpunkt:
-           
+            dir = (x - nullpunkt) / pixelmengea 
+            drive(dir)
+            g = dir *-1
 
         elif x == nullpunkt:
             drive(0)
+            g = 0.001
 
     elif x == None:
         rudolf.SetMotors(0)
