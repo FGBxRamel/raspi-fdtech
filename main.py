@@ -1,7 +1,8 @@
 import RockyBorg
 import time
-import math
+#import math
 import pic
+import ultrasonic_sensor
 
 rudolf = RockyBorg.RockyBorg()
 rudolf.Init()
@@ -79,4 +80,7 @@ while run == True:
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
         print("nicht gefunden")
+
+    #dist = ultrasonic_sensor.distance
+    #print(dist)
 
