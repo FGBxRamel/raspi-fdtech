@@ -1,7 +1,6 @@
 #libary import
 import RockyBorg
 import time
-#import math
 import pic
 import ultrasonic_sensor
 
@@ -37,23 +36,17 @@ while run == True:
     x = color.getY()  
 
     if not x == None:
-        #68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
-        #sin = Gegenkatete/Hypotenuse, Hypotenuse =  (65^2 + (41oder27)^2)^1/2
         
-        a = 0.27 #"""Länge: Mittelpunkt bis rechter äußerer Rand"""
-        b = 0.41 #"""Länge: Mittelpunkt bis linker äußerer Rand""""
-        #c = 0.65 #"""Abstand zu Gerade a+b"""
-
-        #alpha = math.asin(math.sin(a/(c^2 + a^2)^(1/2)))
-        #beta = math.asin(math.sin(b/(c^2 + b^2)^(1/2)))
-
+        #Länge: Mittelpunkt bis rechter äußerer Rand (68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
+        a = 0.27
+        #Länge: Mittelpunkt bis linker äußerer Rand (68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
+        b = 0.41 
         
-        #2464 pixel breite auf a+b eingeteilt
-        #--> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
-        
+        #2464 pixel breite auf a+b eingeteilt --> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
         pixelmengea = (resolution / 0.68) * a
         pixelmengeb = (resolution / 0.68) * b
 
+        #defining median
         nullpunkt = int(resolution - pixelmengea)
 
         if x < nullpunkt:
@@ -72,6 +65,7 @@ while run == True:
             g = 0.001
             print("mitte")
 
+    #no color found --> driving in circle to find object again
     elif x == None:
         rudolf.SetMotorsEnabled(True)
         rudolf.SetMotors(0)
@@ -83,18 +77,3 @@ while run == True:
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
         print("nicht gefunden")
-
-    #returns distance in cm's
-    dist = ultrasonic_sensor.distance
-    
-    #stopps if distance is to low
-    if dist < stopdist:
-        rudolf.SetMotors(0)
-        rudolf.SetServoPosition(0)
-        run = False
-    
-    #timesleep when resolution is to high, to protct the raspberry pi from crahing
-    if resolution > 128:
-        time.sleep((resolution^2/128^2)/4)
-    
-
