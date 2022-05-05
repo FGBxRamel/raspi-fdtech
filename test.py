@@ -1,9 +1,11 @@
 import ultrasonic_sensor
+import time
 stopdist = 10
 
 #returns distance in cm's
-dist = ultrasonic_sensor.distance()
-print(dist)
+while True:
+    time.sleep(0.005)
+    print(ultrasonic_sensor.distance())
 """#stopps if distance is to low
 if dist < stopdist:
     run = False
