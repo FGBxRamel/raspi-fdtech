@@ -65,7 +65,7 @@ class Color:
         input("Press Enter to take the picture")
         img = self.getImage()
         avg = np.array((0,0,0), dtype=int)
-        for y in range(self.length//2-10, self.length//2-4):
+        for y in range(self.length//2-2, self.length//2+3):
             for x in range(self.length//2-2, self.length//2+3):
                 avg = np.add(avg, img[y, x])
         for i, num in enumerate(avg):
