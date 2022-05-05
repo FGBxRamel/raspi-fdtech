@@ -13,7 +13,7 @@ rudolf.Init()
 # drive function
 def drive(direction: float):
     """
-
+    TODO Make docstring
     """
     rudolf.SetMotorsEnabled(True)
     rudolf.SetMotor1(speed * -1)
@@ -22,17 +22,21 @@ def drive(direction: float):
 
 
 # set standart values
-stopdist = float(input("stopping-disatance:"))
-speed = float(input("speed:"))
-resolution = int(input("resolution:"))
-redv = int(input("redvalue:"))
-greenv = int(input("greenvalue:"))
-bluev = int(input("bluevalue:"))
-rangev = int(input("value-range:"))
-colorcode = [redv, greenv, bluev]
-color = pic.Color(colorcode, rangev, resolution)
+if input("Preset values? (y/n):").lower() == "y":
+    color = pic.Color()
+else:
+    stopdist = float(input("stopping-distance:"))
+    speed = float(input("speed:"))
+    resolution = int(input("resolution:"))
+    redv = int(input("redvalue:"))
+    greenv = int(input("greenvalue:"))
+    bluev = int(input("bluevalue:"))
+    rangev = int(input("value-range:"))
+    colorcode = [redv, greenv, bluev]
+    color = pic.Color(colorcode, rangev, resolution)
 run = True
 g = -1
+input("Press Enter to start.")
 
 # loop to search
 while run == True:
