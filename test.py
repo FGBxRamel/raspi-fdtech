@@ -1,5 +1,3 @@
-from copyreg import dispatch_table
-from xmlrpc.server import _DispatchArity1
 import ultrasonic_sensor
 stopdist = 10
 
