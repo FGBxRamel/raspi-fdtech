@@ -63,7 +63,7 @@ class Color:
     def _getColor(self) -> list:
         """Internal function for getting the average color of the middle pixels of a freshly taken picture. Gives back a list with the RGB values."""
         img = self.getImage()
-        avg = list((0, 0, 0))
+        avg = np.array((0,0,0), dtype=int)
         for y in range(self.length//2-10, self.length//2-4):
             for x in range(self.length//2-2, self.length//2+3):
                 print(avg, img[y, x])
