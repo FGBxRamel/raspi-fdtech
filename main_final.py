@@ -37,6 +37,9 @@ g = -1
 # loop to search
 while run == True:
 
+    #set for straight image
+    drive(0)
+
     # gets x-coordniate of aim (pixel with nearest value to given values)
     x = color.getY()
 
@@ -86,8 +89,12 @@ while run == True:
         rudolf.SetServoPosition(0)
         rudolf.SetMotor1(-1)
         rudolf.SetMotor2(1)
-        rudolf.SetServoPosition(g * 1)
+        rudolf.SetServoPosition(g * 0.5)
         time.sleep(1)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
         print("nicht gefunden")
+    
+    #timesleep when resolution is to high, to protct the raspberry pi from crahing
+    if resolution > 128:
+        time.sleep((resolution^2/128^2)/4)
