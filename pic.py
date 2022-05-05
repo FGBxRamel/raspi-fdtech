@@ -54,9 +54,9 @@ class Color:
                     if img_color >= pair[0] and img_color <= pair[1]:
                         avg_offset += abs(img_color - self.color[i])
                         valid = True
-                        print(f"pixel {x}, {y} has valid {i} value of {img_color}")
+                        #print(f"pixel {x}, {y} has valid {i} value of {img_color}")
                     else:
-                        print(f"pixel {x}, {y} has no valid {i} value with {img_color}")
+                        #print(f"pixel {x}, {y} has no valid {i} value with {img_color}")
                         valid = False
                         break
                 if valid:
