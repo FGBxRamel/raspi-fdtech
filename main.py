@@ -69,6 +69,7 @@ while run == True:
             print("mitte")
 
     elif x == None:
+        rudolf.SetMotorsEnabled(True)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
         rudolf.SetMotor1(-0.2)
