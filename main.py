@@ -9,6 +9,7 @@ run = True
 g = -1
 
 def drive(direction:float):
+    rudolf.SetMotorsEnabled(True)
     rudolf.SetMotor1(speed * -1)
     rudolf.SetMotor2(speed)
     rudolf.SetServoPosition(direction)
