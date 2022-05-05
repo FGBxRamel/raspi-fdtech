@@ -66,6 +66,7 @@ class Color:
         avg = list((0, 0, 0))
         for y in range(self.length//2-10, self.length//2-4):
             for x in range(self.length//2-2, self.length//2+3):
+                print(avg, img[y, x])
                 np.add(avg, img[y, x])
         for i, num in enumerate(avg):
             avg[i] = num//25
