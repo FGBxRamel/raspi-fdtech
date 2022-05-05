@@ -72,25 +72,29 @@ while run == True:
         # drives left if x-value is lower then range around center
         if x < (nullpunkt-10):
             dir = (x - nullpunkt) / pixelmengeb
+            print("links")
             drive(dir)
             g = dir * -1
-            print("links")
+            
 
         # drives right if x-value is higher then range around center
         elif x > (nullpunkt+10):
             dir = (x - nullpunkt) / pixelmengea
+            print("rechts")
             drive(dir)
             g = dir * -1
-            print("rechts")
+            
 
         # drives straigt if x-value is equal to range in center
         elif x < (nullpunkt + 10) and x > (nullpunkt - 10):
+            print("mitte")
             drive(0)
             g = 0.001
-            print("mitte")
+           
 
     # no color found --> driving in circle to find object again
     elif x == None:
+        print("nicht gefunden")
         rudolf.SetMotorsEnabled(True)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
@@ -100,7 +104,7 @@ while run == True:
         time.sleep(1)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
-        print("nicht gefunden")
+        
     
     #timesleep when resolution is to high, to protct the raspberry pi from crahing
     if resolution > 128:
