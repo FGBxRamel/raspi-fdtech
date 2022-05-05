@@ -66,5 +66,11 @@ class Color:
 
 
 if __name__ == "__main__":
-    color = Color((212, 25, 196), tolerance=0)
-    print(color.getY())
+    #color = Color((212, 25, 196), tolerance=0)
+    #print(color.getY())
+    with picamera.PiCamera() as camera:
+            camera.resolution = (128, 128)
+            img = np.empty((128 * 128 * 3), dtype=np.uint8)
+            camera.capture(img, "bgr")
+            img = img.reshape((128, 128, 3))
+            cv.imwrite("testy.png", img)
