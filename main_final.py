@@ -73,8 +73,7 @@ while run == True:
             g = dir * -1
             print("rechts")
 
-        # drives straigt if x-value is equal to center
-        # TODO Set offset
+        # drives straigt if x-value is equal to range in center
         elif x < (nullpunkt + 10) and x > (nullpunkt - 10):
             drive(0)
             g = 0.001
