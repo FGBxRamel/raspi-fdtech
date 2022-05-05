@@ -18,7 +18,7 @@ def drive(direction:float):
 
 
 #timeslp = input("timesteps:")
-speed = input("speed:")
+speed = int(input("speed:"))
 resolution = int(input("resolution:"))
 redv = int(input("redvalue:"))
 greenv = int(input("greenvalue:"))
@@ -55,23 +55,26 @@ while run == True:
             dir = (x - nullpunkt) / pixelmengeb
             drive(dir)
             g = dir * -1
+            print("links")
 
         elif x > nullpunkt:
             dir = (x - nullpunkt) / pixelmengea 
             drive(dir)
             g = dir *-1
-
+            print("rechts")
         elif x == nullpunkt:
             drive(0)
             g = 0.001
+            print("mitte")
 
     elif x == None:
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
-        rudolf.SetMotor1(-0.1)
-        rudolf.SetMotor2(0.1)
+        rudolf.SetMotor1(-0.2)
+        rudolf.SetMotor2(0.2)
         rudolf.SetServoPosition(g *0.25)
-        time.sleep(1)
+        time.sleep(2)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
+        print("nicht gefunden")
 
