@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 import io
-import picamera
+#import picamera
 
 
 class Color:
@@ -34,10 +34,10 @@ class Color:
         """Gives back the y-Coordinate of the last pixel found matching the color."""
         # TODO Change image to freshly taken one... Idealy from stream
         # TODO This always gives back a number??
-        with self.camera.capture(io.BytesIO, 'jpg') as f:
+        with self.camera.capture(io.BytesIO, 'jpeg') as f:
             img = np.array(cv.resize(cv.imread(f),
                                      (self.length, self.length)))
-        # img = np.array(cv.resize(cv.imread("test3.jpg"),
+        #img = np.array(cv.resize(cv.imread("test3.jpg"),
         #               (self.length, self.length)))
         winner = {}
         # this dict has the structure: avg_offset : pixel-y-coordinate
@@ -46,7 +46,7 @@ class Color:
                 avg_offset = 0
                 for i, pair in enumerate(self.range):
                     img_color = img[y, x][i]
-                    if img_color <= pair[0] or img_color >= pair[1]:
+                    if img_color >= pair[0] and img_color <= pair[1]:
                         avg_offset += abs(img_color - self.color[i])
                     else:
                         break
