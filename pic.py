@@ -27,7 +27,7 @@ class Color:
         self.range = []
         for i in range(0, 3):
             self.range.append(list(
-                (self.color[i]-self.tolerance, self.color[i]+self.tolerance)))
+                (int(self.color[i])-self.tolerance, int(self.color[i])+self.tolerance)))
         return self.range
 
     def getY(self) -> int:
