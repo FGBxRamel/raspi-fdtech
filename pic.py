@@ -6,9 +6,12 @@ import picamera
 
 class Color:
     """A class for a color.\n
-    It needs a color code in the format of a list (R, G, B).\n
     Optional arguments:\n
+        colorcode: can take a color code in the format of a list (R, G, B).\n
+        If nothing is given it will make a fresh picture and take the average color in the middle of the picture.\n
+        
         tolerance: is the range in which every color value ist okay (R+-x, G+-x, B+-x). Default: 20.\n
+        
         length: The length of the sides of the downscaled picture. The bigger the number, the more precise (and long) it will be. Default: 128
     """
 
@@ -57,12 +60,13 @@ class Color:
         return winner[min(winner.keys())] if not len(winner) == 0 else None
 
     def _getColor(self) -> list:
+        """Internal function for getting the average color of the middle pixels of a freshly taken picture. Gives back a list with the RGB values."""
         img = self.getImage()
-        avg = list((0,0,0))
+        avg = list((0, 0, 0))
         for y in range(self.length/2-2, self.length/2+3):
             for x in range(self.length/2-2, self.length/2+3):
                 np.add(avg, img[y, x])
-        return np.divide(avg, list((25,25)))
+        return np.divide(avg, list((25, 25)))
 
     def getImage(self) -> np.ndarray:
         """Takes a picture and gives it back as an numpy ndarray"""
@@ -76,10 +80,10 @@ class Color:
 
 if __name__ == "__main__":
     #color = Color((212, 25, 196), tolerance=0)
-    #print(color.getY())
+    # print(color.getY())
     with picamera.PiCamera() as camera:
-            camera.resolution = (128, 128)
-            img = np.empty((128 * 128 * 3), dtype=np.uint8)
-            camera.capture(img, "bgr")
-            img = img.reshape((128, 128, 3))
-            cv.imwrite("testy.png", img)
+        camera.resolution = (128, 128)
+        img = np.empty((128 * 128 * 3), dtype=np.uint8)
+        camera.capture(img, "bgr")
+        img = img.reshape((128, 128, 3))
+        cv.imwrite("testy.png", img)
