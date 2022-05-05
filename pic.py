@@ -53,6 +53,6 @@ class Color:
                 winner[avg_offset] = y
         return winner[min(winner.keys())] if not len(winner) == 0 else None
 
-
-color = Color((212, 25, 196), tolerance=0)
-print(color.getY())
+if __name__=="__main__":
+    color = Color((212, 25, 196), tolerance=0)
+    print(color.getY())
