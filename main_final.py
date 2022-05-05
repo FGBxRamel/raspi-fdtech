@@ -1,23 +1,27 @@
-#libary import
+# libary import
 import RockyBorg
 import time
 import pic
 import ultrasonic_sensor
 
-#class definition
+# class definition
 rudolf = RockyBorg.RockyBorg()
 
-#sets up Rockyborg
+# sets up Rockyborg
 rudolf.Init()
 
-#drive function
-def drive(direction:float):
+# drive function
+def drive(direction: float):
+    """
+
+    """
     rudolf.SetMotorsEnabled(True)
     rudolf.SetMotor1(speed * -1)
     rudolf.SetMotor2(speed)
     rudolf.SetServoPosition(direction)
 
-#set standart values
+
+# set standart values
 stopdist = float(input("stopping-disatance:"))
 speed = float(input("speed:"))
 resolution = int(input("resolution:"))
@@ -30,52 +34,53 @@ color = pic.Color(colorcode, rangev, resolution)
 run = True
 g = -1
 
-#loop to search 
+# loop to search
 while run == True:
-    
-    #gets x-coordniate of aim (pixel with nearest value to given values)
-    x = color.getY()  
 
-    #runs wehn x is definied
+    # gets x-coordniate of aim (pixel with nearest value to given values)
+    x = color.getY()
+
+    # runs when x is definied
     if not x == None:
-        
-        #distance from center to right picture-end on x-axis (individual for every camera, needs to be measured)
+
+        # distance from center to right picture-end on x-axis (individual for every camera, needs to be measured)
         a = 0.27
-        
-        #distance from center to left picture-end on the x-axis (individual for every camera, needs to be measured)
-        b = 0.41 
-        
-        #distance from measuring device (individual for every camera, needs to be measured)
+
+        # distance from center to left picture-end on the x-axis (individual for every camera, needs to be measured)
+        b = 0.41
+
+        # distance from measuring device (individual for every camera, needs to be measured)
         c = 0.68
 
-        #amount of pixels on the x-axis for each part (left and right of the center) 
+        # amount of pixels on the x-axis for each part (left and right of the center)
         pixelmengea = (resolution / c) * a
         pixelmengeb = (resolution / c) * b
 
-        #defining center of the x-axis
+        # defining center of the x-axis
         nullpunkt = int(resolution - pixelmengea)
 
-        #drives left if x-value is lower then center
-        if x < nullpunkt:
+        # drives left if x-value is lower then range around center
+        if x < (nullpunkt-10):
             dir = (x - nullpunkt) / pixelmengeb
             drive(dir)
             g = dir * -1
             print("links")
-        
-        #drives right if x-value is higher then center
-        elif x > nullpunkt:
-            dir = (x - nullpunkt) / pixelmengea 
+
+        # drives right if x-value is higher then range around center
+        elif x > (nullpunkt+10):
+            dir = (x - nullpunkt) / pixelmengea
             drive(dir)
-            g = dir *-1
+            g = dir * -1
             print("rechts")
 
-        #drives straigt if x-value is equal to center
-        elif x == nullpunkt:
+        # drives straigt if x-value is equal to center
+        # TODO Set offset
+        elif x < (nullpunkt + 10) and x > (nullpunkt - 10):
             drive(0)
             g = 0.001
             print("mitte")
 
-    #no color found --> driving in circle to find object again
+    # no color found --> driving in circle to find object again
     elif x == None:
         rudolf.SetMotorsEnabled(True)
         rudolf.SetMotors(0)
