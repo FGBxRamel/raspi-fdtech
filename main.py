@@ -18,7 +18,7 @@ def drive(direction:float):
 
 
 #timeslp = input("timesteps:")
-speed = int(input("speed:"))
+speed = float(input("speed:"))
 resolution = int(input("resolution:"))
 redv = int(input("redvalue:"))
 greenv = int(input("greenvalue:"))
