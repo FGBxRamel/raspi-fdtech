@@ -19,8 +19,9 @@ class Color:
         self.color = list(colorcode)
         self.tolerance = int(tolerance)
         self.length = int(length)
-        self._addTolerance()
         self.color = self._getColor() if self.color[0] == -1 else self.color
+        self._addTolerance()
+
 
     def _addTolerance(self) -> list:
         """Internal function to add the given tolerance to the RGB list. Gives back a list, with a list with the start and stop value of the color value.\n
@@ -62,11 +63,13 @@ class Color:
     def _getColor(self) -> list:
         """Internal function for getting the average color of the middle pixels of a freshly taken picture. Gives back a list with the RGB values."""
         img = self.getImage()
-        avg = list((0, 0, 0))
-        for y in range(self.length//2-2, self.length//2+3):
+        avg = np.array((0,0,0), dtype=int)
+        for y in range(self.length//2-10, self.length//2-4):
             for x in range(self.length//2-2, self.length//2+3):
-                np.add(avg, img[y, x])
-        return np.divide(avg, list((25, 25)))
+                avg = np.add(avg, img[y, x])
+        for i, num in enumerate(avg):
+            avg[i] = num//25
+        return avg
 
     def getImage(self) -> np.ndarray:
         """Takes a picture and gives it back as an numpy ndarray"""
