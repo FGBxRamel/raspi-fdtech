@@ -75,7 +75,7 @@ while run == True:
         rudolf.SetMotor1(-1)
         rudolf.SetMotor2(1)
         rudolf.SetServoPosition(g * 1)
-        time.sleep(2)
+        time.sleep(1)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
         print("nicht gefunden")
