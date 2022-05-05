@@ -34,7 +34,7 @@ class Color:
         """Gives back the y-Coordinate of the last pixel found matching the color."""
         # TODO Change image to freshly taken one... Idealy from stream
         # TODO This always gives back a number??
-        with self.camera.capture(io.BytesIO, 'jpeg') as f:
+        with self.camera.capture(io.BytesIO(), 'jpeg') as f:
             img = np.array(cv.resize(cv.imread(f),
                                      (self.length, self.length)))
         #img = np.array(cv.resize(cv.imread("test3.jpg"),
