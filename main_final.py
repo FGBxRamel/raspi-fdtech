@@ -25,10 +25,10 @@ def drive(direction: float):
 
 # set standart values
 if input("Preset values? (y/n):").lower() == "y":
-    resolution = 256
+    resolution = 128
     speed = 0.3
     stopdist = 10.0
-    color = pic.Color(length=256)
+    color = pic.Color()
 else:
     stopdist = float(input("stopping-distance:"))
     speed = float(input("speed:"))
@@ -47,7 +47,8 @@ input("Press Enter to start.")
 while run == True:
 
     #set for straight image
-    drive(0)
+    rudolf.SetMotors(0)
+    rudolf.SetServoPosition(0)
 
     # gets x-coordniate of aim (pixel with nearest value to given values)
     x = color.getY()
