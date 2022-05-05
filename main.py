@@ -66,15 +66,18 @@ while run == True:
 
         if lenkennötig:
             if zielwinkel < 0:
-                drive(0.5)
+                drive(0.2)
+                g = -   1
             elif zielwinkel > 0:
-                drive(-0.5)
+                drive(-0.2)
+                g = 1
+
     elif x == None:
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
         rudolf.SetMotor1(-0.1)
         rudolf.SetMotor2(0.1)
-        rudolf.SetServoPosition(0.25)
+        rudolf.SetServoPosition(g *0.25)
         time.sleep(1)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
