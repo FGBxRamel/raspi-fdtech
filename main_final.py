@@ -101,7 +101,7 @@ while run == True:
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
         rudolf.SetMotor1(-0.25)
-        rudolf.SetMotor2(0,25)
+        rudolf.SetMotor2(0.25)
         rudolf.SetServoPosition(g * 1)
         time.sleep(1)
         rudolf.SetMotors(0)
