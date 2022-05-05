@@ -23,6 +23,9 @@ def drive(direction: float):
 
 # set standart values
 if input("Preset values? (y/n):").lower() == "y":
+    resolution = 128
+    speed = 0.5
+    stopdist = 10.0
     color = pic.Color()
 else:
     stopdist = float(input("stopping-distance:"))
