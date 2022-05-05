@@ -6,6 +6,7 @@ import pic
 rudolf = RockyBorg.RockyBorg()
 rudolf.Init()
 run = True
+g = -1
 
 def drive(direction:float):
     rudolf.SetMotor1(speed * -1)
