@@ -33,33 +33,43 @@ g = -1
 #loop to search 
 while run == True:
     
+    #gets x-coordniate of aim (pixel with nearest value to given values)
     x = color.getY()  
 
+    #runs wehn x is definied
     if not x == None:
         
-        #Länge: Mittelpunkt bis rechter äußerer Rand (68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
+        #distance from center to right picture-end on x-axis (individual for every camera, needs to be measured)
         a = 0.27
-        #Länge: Mittelpunkt bis linker äußerer Rand (68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
+        
+        #distance from center to left picture-end on the x-axis (individual for every camera, needs to be measured)
         b = 0.41 
         
-        #2464 pixel breite auf a+b eingeteilt --> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
-        pixelmengea = (resolution / 0.68) * a
-        pixelmengeb = (resolution / 0.68) * b
+        #distance from measuring device (individual for every camera, needs to be measured)
+        c = 0.68
 
-        #defining median
+        #amount of pixels on the x-axis for each part (left and right of the center) 
+        pixelmengea = (resolution / c) * a
+        pixelmengeb = (resolution / c) * b
+
+        #defining center of the x-axis
         nullpunkt = int(resolution - pixelmengea)
 
+        #drives left if x-value is lower then center
         if x < nullpunkt:
             dir = (x - nullpunkt) / pixelmengeb
             drive(dir)
             g = dir * -1
             print("links")
-
+        
+        #drives right if x-value is higher then center
         elif x > nullpunkt:
             dir = (x - nullpunkt) / pixelmengea 
             drive(dir)
             g = dir *-1
             print("rechts")
+
+        #drives straigt if x-value is equal to center
         elif x == nullpunkt:
             drive(0)
             g = 0.001
