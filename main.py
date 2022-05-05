@@ -45,32 +45,19 @@ while run == True:
         #2464 pixel breite auf a+b eingeteilt
         #--> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
         
-        pixelmengea = (128 / 0.68) * a
-        pixelmengeb = (128 / 0.68) * b
+        pixelmengea = (resolution / 0.68) * a
+        pixelmengeb = (resolution / 0.68) * b
 
-        nullpunkt = int(128 - pixelmengea)
+        nullpunkt = int(resolution - pixelmengea)
 
         if x < nullpunkt:
-            anteilanwinkel = beta / pixelmengeb
-            zielwinkel = (x - nullpunkt) * anteilanwinkel
-            lenkennötig = True
+            direction = 
 
         elif x > nullpunkt:
-            anteilanwinkel = alpha / pixelmengea
-            zielwinkel = (x - nullpunkt) * anteilanwinkel
-            lenkennötig = True
+           
 
         elif x == nullpunkt:
-            lenkennötig = False
             drive(0)
-
-        if lenkennötig:
-            if zielwinkel < 0:
-                drive(0.2)
-                g = -   1
-            elif zielwinkel > 0:
-                drive(-0.2)
-                g = 1
 
     elif x == None:
         rudolf.SetMotors(0)

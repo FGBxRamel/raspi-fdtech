@@ -14,10 +14,10 @@ def drive(direction:float):
 
 speed = input("speed:")
 resolution = input("resolution:")
-redv = input("redvalue:")
-greenv = input("greenvalue:")
-bluev = input("bluevalue:")
-rangev = input("value-range:")
+redv:int = input("redvalue:")
+greenv:int = input("greenvalue:")
+bluev:int = input("bluevalue:")
+rangev:int = input("value-range:")
 colorcode = [redv, greenv, bluev]
 color = pic.Color(colorcode, rangev, resolution)
 
@@ -36,10 +36,10 @@ while run == True:
         #2464 pixel breite auf a+b eingeteilt
         #--> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
         
-        pixelmengea = (128 / 0.68) * a
-        pixelmengeb = (128 / 0.68) * b
+        pixelmengea = (resolution / 0.68) * a
+        pixelmengeb = (resolution / 0.68) * b
 
-        nullpunkt = int(128 - pixelmengea)
+        nullpunkt = int(resolution - pixelmengea)
 
         if x < nullpunkt:
             drive(0.2)
@@ -47,7 +47,7 @@ while run == True:
             
 
         elif x > nullpunkt:
-            drive(-0.2)
+            drive(-1 * 0.2)
             g = 1
 
         elif x == nullpunkt:
