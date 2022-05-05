@@ -18,11 +18,11 @@ def drive(direction:float):
 
 #timeslp = input("timesteps:")
 speed = input("speed:")
-resolution = input("resolution:")
-redv = input("redvalue:")
-greenv = input("greenvalue:")
-bluev = input("bluevalue:")
-rangev = input("value-range:")
+resolution = int(input("resolution:"))
+redv = int(input("redvalue:"))
+greenv = int(input("greenvalue:"))
+bluev = int(input("bluevalue:"))
+rangev = int(input("value-range:"))
 colorcode = [redv, greenv, bluev]
 color = pic.Color(colorcode, rangev, resolution)
 
