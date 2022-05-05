@@ -15,7 +15,7 @@ class Color:
         length: The length of the sides of the downscaled picture. The bigger the number, the more precise (and long) it will be. Default: 128
     """
 
-    def __init__(self, colorcode: list = (-1, -1, -1), tolerance: int = 20, length: int = 128) -> None:
+    def __init__(self, colorcode: list = (-1, -1, -1), tolerance: int = 5, length: int = 128) -> None:
         self.color = list(colorcode)
         self.tolerance = int(tolerance)
         self.length = int(length)
