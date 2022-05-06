@@ -61,6 +61,7 @@ while run == True:
     rudolf.SetServoPosition(0)
 
     stopdist = speed * 3 * 2 * math.pi * 0.032
+    print(stopdist)
 
     #Neigungswinkel des Ultraschallsensorss in Grad
     alpha = 1.075
@@ -70,7 +71,8 @@ while run == True:
 
     #ermittlung der tatsächlichen Distanz
     distact =  (math.sin(alpha)) * distan
-  
+    print(distact)
+
     if distact < stopdist:
         reset()
         break
