@@ -123,7 +123,7 @@ while run == True:
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
 
-    # timesleep when resolution is to high, to protct the raspberry pi from crashing
+    # timesleep when resolution is too high, to protct the raspberry pi from crashing
     if resolution > 128:
         time.sleep((resolution^2/128^2)/4)
 
