@@ -27,7 +27,6 @@ def reset() -> None:
 
 config = cp.ConfigParser()
 config.read("config.ini")
-presets = config["PRESETS"]
 
 rudolf = RockyBorg.RockyBorg()
 rudolf.Init()
@@ -35,10 +34,10 @@ rudolf.Init()
 
 # set standart values
 if input("Preset values? (y/n):").lower() == "y":
-    resolution = presets.getint("Resolution")
-    speed = presets.getfloat("Speed")
-    stopdist = presets.getfloat("StopDistance")
-    valueRange = presets.getint("ValueRange")
+    resolution = config["PRESETS"].getint("Resolution")
+    speed = config["PRESETS"].getfloat("Speed")
+    stopdist = config["PRESETS"].getfloat("StopDistance")
+    valueRange = config["PRESETS"].getint("ValueRange")
     color = pic.Color(tolerance=valueRange, length=resolution)
 else:
     stopdist = float(input("stopping-distance:"))
