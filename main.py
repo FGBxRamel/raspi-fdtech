@@ -37,11 +37,9 @@ rudolf.Init()
 if input("Preset values? (y/n):").lower() == "y":
     resolution = config["PRESETS"].getint("Resolution")
     speed = config["PRESETS"].getfloat("Speed")
-    stopdist = config["PRESETS"].getfloat("StopDistance")
     valueRange = config["PRESETS"].getint("ValueRange")
     color = pic.Color(tolerance=valueRange, length=resolution)
 else:
-    stopdist = float(input("stopping-distance:"))
     speed = float(input("speed:"))
     resolution = int(input("resolution:"))
     redv = int(input("redvalue:"))
