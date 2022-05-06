@@ -128,7 +128,7 @@ while run == True:
         time.sleep((resolution^2/128^2)/4)
 
     #Neigungswinkel des Ultraschallsensorss in Grad
-    alpha = 10
+    alpha = 1.07
 
     #Messung der Distanz vom Sensor zum nächstgelegenen Objekt
     distan = ultrasonic_sensor.distance()

@@ -1,6 +1,7 @@
 import ultrasonic_sensor
 import time
 import math
+
 stopdist = 10
 n = 0
 while n < 5:
