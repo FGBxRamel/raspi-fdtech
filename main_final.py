@@ -135,4 +135,5 @@ while run == True:
     if distact < stopdist:
         reset()
         break
+reset()
 print("Prozess beendet.")
