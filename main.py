@@ -61,6 +61,7 @@ while run == True:
     rudolf.SetServoPosition(0)
 
     stopdist = speed * 3 * 2 * math.pi * 0.032
+    print("stopdist")
     print(stopdist)
 
     #Neigungswinkel des Ultraschallsensorss in Grad
@@ -71,6 +72,7 @@ while run == True:
 
     #ermittlung der tatsächlichen Distanz
     distact =  (math.sin(alpha)) * distan
+    print("distance actually")
     print(distact)
 
     if distact < stopdist:
@@ -84,6 +86,7 @@ while run == True:
     if not x == None:
         found = True
         notFound = 0
+        
         # distance from center to right picture-end on x-axis (individual for every camera, needs to be measured)
         a = 0.27
 
@@ -103,7 +106,7 @@ while run == True:
         # drives left if x-value is lower then range around center
         if x < (nullpunkt-10):
             dir = (x - nullpunkt) / pixelmengeb
-            print("links")
+            print("links " + dir + "dir")
             drive(dir)
             time.sleep(1)
             g = dir * -1
@@ -111,14 +114,14 @@ while run == True:
         # drives right if x-value is higher then range around center
         elif x > (nullpunkt+10):
             dir = (x - nullpunkt) / pixelmengea
-            print("rechts")
+            print("rechts " + dir + "dir")
             drive(dir)
             time.sleep(1)
             g = dir * -1
 
         # drives straigt if x-value is equal to range in center
         elif x < (nullpunkt + 10) and x > (nullpunkt - 10):
-            print("mitte")
+            print("mitte 0")
             drive(0)
             time.sleep(1)
             g = 0.001
@@ -131,7 +134,7 @@ while run == True:
         notFound += 1
         speeeed = 0.25
         stopdist = speeeed * 3 * 2 * math.pi * 0.032
-        print("nicht gefunden")
+        print("nicht gefunden " + stopdist)
         rudolf.SetMotorsEnabled(True)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
