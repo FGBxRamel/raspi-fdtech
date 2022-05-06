@@ -110,7 +110,7 @@ while run == True:
 
     # no color found --> driving in circle to find object again
     elif x == None:
-        if found and notFound >= 2:
+        if found and notFound >= 10:
             reset()
             break
         notFound += 1
