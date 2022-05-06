@@ -62,6 +62,8 @@ while run == True:
     rudolf.SetMotors(0)
     rudolf.SetServoPosition(0)
 
+    stopdist = speed * 3 * 2 * math.pi * 0.032
+
     #Neigungswinkel des Ultraschallsensorss in Grad
     alpha = 1.075
 

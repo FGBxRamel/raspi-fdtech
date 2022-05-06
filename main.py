@@ -1,100 +1,150 @@
-#libary import
-import RockyBorg
+# libary import
+import configparser as cp
 import time
-#import math
+import math
 import pic
+import RockyBorg
 import ultrasonic_sensor
 
-#class definition
-rudolf = RockyBorg.RockyBorg()
 
-#sets up Rockyborg
-rudolf.Init()
+def drive(direction: float) -> None:
+    """
+    lets the vehicle drive with predefined speed and given direction
 
-#drive function
-def drive(direction:float):
+    direction: value betwenn -1 and 1 describing in wich direction the vehicle drives
+    """
     rudolf.SetMotorsEnabled(True)
     rudolf.SetMotor1(speed * -1)
     rudolf.SetMotor2(speed)
     rudolf.SetServoPosition(direction)
 
-#set standart values
-stopdist = float(input("stopping-disatance:"))
-speed = float(input("speed:"))
-resolution = int(input("resolution:"))
-redv = int(input("redvalue:"))
-greenv = int(input("greenvalue:"))
-bluev = int(input("bluevalue:"))
-rangev = int(input("value-range:"))
-colorcode = [redv, greenv, bluev]
-color = pic.Color(colorcode, rangev, resolution)
+
+def reset() -> None:
+    """Helper function to stop/reset the Rocky so it stops."""
+    rudolf.MotorsOff()
+    rudolf.SetMotorsEnabled(False)
+    rudolf.SetServoPosition(0)
+
+config = cp.ConfigParser()
+config.read("config.ini")
+presets = config["PRESETS"]
+
+rudolf = RockyBorg.RockyBorg()
+rudolf.Init()
+
+
+# set standart values
+if input("Preset values? (y/n):").lower() == "y":
+    resolution = config["PRESETS"].getint("Resolution")
+    speed = config["PRESETS"].getfloat("Speed")
+    stopdist = config["PRESETS"].getfloat("StopDistance")
+    valueRange = config["PRESETS"].getint("ValueRange")
+    color = pic.Color(tolerance=valueRange, length=resolution)
+else:
+    stopdist = float(input("stopping-distance:"))
+    speed = float(input("speed:"))
+    resolution = int(input("resolution:"))
+    redv = int(input("redvalue:"))
+    greenv = int(input("greenvalue:"))
+    bluev = int(input("bluevalue:"))
+    rangev = int(input("value-range:"))
+    colorcode = [redv, greenv, bluev]
+    color = pic.Color(colorcode, rangev, resolution)
 run = True
 g = -1
+found = False
+notFound = 0
+input("Press Enter to start.")
 
-
+# loop to search
 while run == True:
-    
-    x = color.getY()  
+    # set for straight image
+    rudolf.SetMotors(0)
+    rudolf.SetServoPosition(0)
 
+    stopdist = speed * 3 * 2 * math.pi * 0.032
+
+    #Neigungswinkel des Ultraschallsensorss in Grad
+    alpha = 1.075
+
+    #Messung der Distanz vom Sensor zum nächstgelegenen Objekt
+    distan = ultrasonic_sensor.distance()
+
+    #ermittlung der tatsächlichen Distanz
+    distact =  (math.sin(alpha)) * distan
+  
+    if distact < stopdist:
+        reset()
+        break
+
+    # gets x-coordniate of aim (pixel with nearest value to given values)
+    x = color.getY()
+
+    # runs when x is definied
     if not x == None:
-        #68 cm Breite des Bildes bei 65 cm Abstand (41cm nach links / 27 cm nach rechts)
-        #sin = Gegenkatete/Hypotenuse, Hypotenuse =  (65^2 + (41oder27)^2)^1/2
-        
-        a = 0.27 #"""Länge: Mittelpunkt bis rechter äußerer Rand"""
-        b = 0.41 #"""Länge: Mittelpunkt bis linker äußerer Rand""""
-        #c = 0.65 #"""Abstand zu Gerade a+b"""
+        found = True
+        notFound = 0
+        # distance from center to right picture-end on x-axis (individual for every camera, needs to be measured)
+        a = 0.27
 
-        #alpha = math.asin(math.sin(a/(c^2 + a^2)^(1/2)))
-        #beta = math.asin(math.sin(b/(c^2 + b^2)^(1/2)))
+        # distance from center to left picture-end on the x-axis (individual for every camera, needs to be measured)
+        b = 0.41
 
-        
-        #2464 pixel breite auf a+b eingeteilt
-        #--> doppelte if Bedingung danach Anteil an Pixelmasse und dadurch Winkel zu berechnen
-        
-        pixelmengea = (resolution / 0.68) * a
-        pixelmengeb = (resolution / 0.68) * b
+        # distance from measuring device (individual for every camera, needs to be measured)
+        c = 0.68
 
+        # amount of pixels on the x-axis for each part (left and right of the center)
+        pixelmengea = (resolution / c) * a
+        pixelmengeb = (resolution / c) * b
+
+        # defining center of the x-axis
         nullpunkt = int(resolution - pixelmengea)
 
-        if x < nullpunkt:
+        # drives left if x-value is lower then range around center
+        if x < (nullpunkt-10):
             dir = (x - nullpunkt) / pixelmengeb
-            drive(dir)
-            g = dir * -1
             print("links")
-
-        elif x > nullpunkt:
-            dir = (x - nullpunkt) / pixelmengea 
             drive(dir)
-            g = dir *-1
-            print("rechts")
-        elif x == nullpunkt:
-            drive(0)
-            g = 0.001
-            print("mitte")
+            time.sleep(1)
+            g = dir * -1
 
+        # drives right if x-value is higher then range around center
+        elif x > (nullpunkt+10):
+            dir = (x - nullpunkt) / pixelmengea
+            print("rechts")
+            drive(dir)
+            time.sleep(1)
+            g = dir * -1
+
+        # drives straigt if x-value is equal to range in center
+        elif x < (nullpunkt + 10) and x > (nullpunkt - 10):
+            print("mitte")
+            drive(0)
+            time.sleep(1)
+            g = 0.001
+
+    # no color found --> driving in circle to find object again
     elif x == None:
+        if found and notFound >= 2:
+            reset()
+            break
+        notFound += 1
+        speeeed = 0.25
+        stopdist = speeeed * 3 * 2 * math.pi * 0.032
+        print("nicht gefunden")
         rudolf.SetMotorsEnabled(True)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
-        rudolf.SetMotor1(-1)
-        rudolf.SetMotor2(1)
+        rudolf.SetMotor1(speeeed * -1)
+        rudolf.SetMotor2(speeeed)
         rudolf.SetServoPosition(g * 1)
         time.sleep(1)
         rudolf.SetMotors(0)
         rudolf.SetServoPosition(0)
-        print("nicht gefunden")
 
-    #returns distance in cm's
-    dist = ultrasonic_sensor.distance
-    
-    #stopps if distance is to low
-    if dist < stopdist:
-        rudolf.SetMotors(0)
-        rudolf.SetServoPosition(0)
-        run = False
-    
-    #timesleep when resolution is to high, to protct the raspberry pi from crahing
+    # timesleep when resolution is too high, to protct the raspberry pi from crashing
     if resolution > 128:
         time.sleep((resolution^2/128^2)/4)
-    
 
+reset()
+print("Prozess beendet.")
