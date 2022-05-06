@@ -6,7 +6,6 @@ import pic
 import RockyBorg
 import ultrasonic_sensor
 
-
 def drive(direction: float) -> None:
     """
     lets the vehicle drive with predefined speed and given direction
@@ -17,7 +16,6 @@ def drive(direction: float) -> None:
     rudolf.SetMotor1(speed * -1)
     rudolf.SetMotor2(speed)
     rudolf.SetServoPosition(direction)
-
 
 def reset() -> None:
     """Helper function to stop/reset the Rocky so it stops."""
@@ -31,7 +29,6 @@ presets = config["PRESETS"]
 
 rudolf = RockyBorg.RockyBorg()
 rudolf.Init()
-
 
 # set standart values
 if input("Preset values? (y/n):").lower() == "y":
@@ -86,7 +83,7 @@ while run == True:
     if not x == None:
         found = True
         notFound = 0
-        
+
         # distance from center to right picture-end on x-axis (individual for every camera, needs to be measured)
         a = 0.27
 
