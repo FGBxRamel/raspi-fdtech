@@ -125,4 +125,14 @@ while run == True:
 
     # timesleep when resolution is to high, to protct the raspberry pi from crashing
     if resolution > 128:
-        time.sleep((resolution ^ 2/128 ^ 2)/4)
+        time.sleep((resolution^2/128^2)/4)
+
+
+    h = 11
+    dist = ultrasonic_sensor.distance()
+    distact = (dist^2-h^2)^(1/2)
+
+    if distact < stopdist:
+        reset()
+        break
+print("Prozess beendet.")
