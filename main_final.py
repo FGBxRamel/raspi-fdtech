@@ -127,13 +127,13 @@ while run == True:
     if resolution > 128:
         time.sleep((resolution^2/128^2)/4)
 
+    """#Neigungswinkel des Ultraschallsensorss in Grad
+    alpha = 10
 
-    h = 11
-    dist = ultrasonic_sensor.distance()
-    distact = (dist^2-h^2)^(1/2)
-
+    distact = 
+  
     if distact < stopdist:
         reset()
-        break
+        break"""
 reset()
 print("Prozess beendet.")
