@@ -1,7 +1,7 @@
 # libary import
 import configparser as cp
 import time
-
+import math
 import pic
 import RockyBorg
 import ultrasonic_sensor
@@ -127,13 +127,17 @@ while run == True:
     if resolution > 128:
         time.sleep((resolution^2/128^2)/4)
 
-    """#Neigungswinkel des Ultraschallsensorss in Grad
+    #Neigungswinkel des Ultraschallsensorss in Grad
     alpha = 10
 
-    distact = 
+    #Messung der Distanz vom Sensor zum nächstgelegenen Objekt
+    distan = ultrasonic_sensor.distance()
+
+    #ermittlung der tatsächlichen Distanz
+    distact =  (math.sin(alpha)) * distan
   
     if distact < stopdist:
         reset()
-        break"""
+        break
 reset()
 print("Prozess beendet.")
