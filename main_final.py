@@ -27,6 +27,7 @@ def reset() -> None:
 
 config = cp.ConfigParser()
 config.read("config.ini")
+presets = config["PRESETS"]
 
 rudolf = RockyBorg.RockyBorg()
 rudolf.Init()
@@ -90,6 +91,7 @@ while run == True:
             dir = (x - nullpunkt) / pixelmengeb
             print("links")
             drive(dir)
+            time.sleep(1)
             g = dir * -1
 
         # drives right if x-value is higher then range around center
@@ -97,6 +99,7 @@ while run == True:
             dir = (x - nullpunkt) / pixelmengea
             print("rechts")
             drive(dir)
+            time.sleep(1)
             g = dir * -1
 
         # drives straigt if x-value is equal to range in center
@@ -127,7 +130,7 @@ while run == True:
         time.sleep((resolution^2/128^2)/4)
 
     #Neigungswinkel des Ultraschallsensorss in Grad
-    alpha = 1.07
+    alpha = 1.075
 
     #Messung der Distanz vom Sensor zum nächstgelegenen Objekt
     distan = ultrasonic_sensor.distance()
