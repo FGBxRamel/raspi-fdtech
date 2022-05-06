@@ -106,6 +106,7 @@ while run == True:
         elif x < (nullpunkt + 10) and x > (nullpunkt - 10):
             print("mitte")
             drive(0)
+            time.sleep(1)
             g = 0.001
 
     # no color found --> driving in circle to find object again
