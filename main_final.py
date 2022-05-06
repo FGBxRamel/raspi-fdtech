@@ -112,3 +112,16 @@ while run == True:
     #timesleep when resolution is to high, to protct the raspberry pi from crahing
     if resolution > 128:
         time.sleep((resolution^2/128^2)/4)
+
+
+    h = 11
+    dist = ultrasonic_sensor.distance()
+    distact = (dist^2-h^2)^(1/2)
+
+    if distact < stopdist:
+        run = False
+
+if run == False:
+    rudolf.SetServoPosition(0)
+    rudolf.SetMotors(0)
+    print("Prozess beendet")
