@@ -58,10 +58,22 @@ input("Press Enter to start.")
 
 # loop to search
 while run == True:
-
     # set for straight image
     rudolf.SetMotors(0)
     rudolf.SetServoPosition(0)
+
+    #Neigungswinkel des Ultraschallsensorss in Grad
+    alpha = 1.075
+
+    #Messung der Distanz vom Sensor zum nächstgelegenen Objekt
+    distan = ultrasonic_sensor.distance()
+
+    #ermittlung der tatsächlichen Distanz
+    distact =  (math.sin(alpha)) * distan
+  
+    if distact < stopdist:
+        reset()
+        break
 
     # gets x-coordniate of aim (pixel with nearest value to given values)
     x = color.getY()
@@ -111,7 +123,7 @@ while run == True:
 
     # no color found --> driving in circle to find object again
     elif x == None:
-        if found and notFound >= 10:
+        if found and notFound >= 2:
             reset()
             break
         notFound += 1
@@ -130,17 +142,5 @@ while run == True:
     if resolution > 128:
         time.sleep((resolution^2/128^2)/4)
 
-    #Neigungswinkel des Ultraschallsensorss in Grad
-    alpha = 1.075
-
-    #Messung der Distanz vom Sensor zum nächstgelegenen Objekt
-    distan = ultrasonic_sensor.distance()
-
-    #ermittlung der tatsächlichen Distanz
-    distact =  (math.sin(alpha)) * distan
-  
-    if distact < stopdist:
-        reset()
-        break
 reset()
 print("Prozess beendet.")
